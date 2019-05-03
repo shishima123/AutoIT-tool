@@ -96,7 +96,7 @@ Func Random_Cd()
 	Local $txtQtyCd = GUICtrlRead($strQtyCd)
 	Local $Combotype = GUICtrlRead($type)
 	Local $txtCdRandom, $listCdRandom
-	ConsoleWrite($txtCdTo)
+
 	If $txtCdFr = "" Or $txtCdTo = "" Then
 		MsgBox(48, 'ERROR', 'Please enter From-To.')
 	ElseIf $txtCdFr > $txtCdTo Then
