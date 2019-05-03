@@ -1,7 +1,7 @@
 ﻿#Region ;**** Directives created by AutoIt3Wrapper_GUI ****
 #AutoIt3Wrapper_Icon=random.ico
 #AutoIt3Wrapper_Compression=0
-#AutoIt3Wrapper_Res_Fileversion=0.0.0.7
+#AutoIt3Wrapper_Res_Fileversion=0.0.0.8
 #AutoIt3Wrapper_Res_Fileversion_AutoIncrement=y
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
 #include <ButtonConstants.au3>
@@ -11,6 +11,8 @@
 #include <StaticConstants.au3>
 #include <WindowsConstants.au3>
 #include <GUIonchangeRegister.au3>
+#include <GuiStatusBar.au3>
+#include <StaticConstants.au3>
 #Region ### START Koda GUI section ### Form=
 $Form1_1 = GUICreate("Tool Random", 545, 458, 280, 119)
 $Group1 = GUICtrlCreateGroup("Random Code", 16, 8, 505, 201)
@@ -22,6 +24,7 @@ GUICtrlSetTip(-1, "Prefix Characters")
 $strCdFr = GUICtrlCreateInput("000", 88, 80, 81, 21, BitOR($GUI_SS_DEFAULT_INPUT, $ES_CENTER))
 GUICtrlSetTip(-1, "From")
 $strCdTo = GUICtrlCreateInput("100", 200, 80, 89, 21, BitOR($GUI_SS_DEFAULT_INPUT, $ES_CENTER))
+GUICtrlonchangeRegister(-1, "Cal_Len", "42|53")
 GUICtrlSetTip(-1, "To")
 GUICtrlCreateLabel("~", 176, 80, 14, 40, BitOR($SS_CENTER, $SS_CENTERIMAGE))
 GUICtrlSetFont(-1, 23, 400, 0, "MS Sans Serif")
@@ -30,12 +33,14 @@ $listCd = GUICtrlCreateEdit("", 368, 32, 137, 161, BitOR($GUI_SS_DEFAULT_EDIT, $
 GUICtrlSetData(-1, "")
 $strQtyCd = GUICtrlCreateInput("10", 256, 120, 33, 21, BitOR($GUI_SS_DEFAULT_INPUT, $ES_CENTER))
 $lblQtyCd = GUICtrlCreateLabel("QTY:", 200, 120, 47, 24)
+GUICtrlSetTip(-1, "Quantity")
 GUICtrlSetFont(-1, 12, 400, 0, "MS Sans Serif")
 $type = GUICtrlCreateCombo("Random", 88, 120, 81, 25, BitOR($CBS_DROPDOWN, $CBS_AUTOHSCROLL))
 GUICtrlSetData(-1, "Order")
 GUICtrlCreateLabel("Type", 24, 120, 47, 24)
 GUICtrlSetFont(-1, 12, 400, 0, "MS Sans Serif")
 $strLen = GUICtrlCreateLabel("LEN: 3", 296, 40, 71, 24)
+GUICtrlSetTip(-1, "String length is generated")
 GUICtrlSetFont(-1, 12, 400, 0, "MS Sans Serif")
 GUICtrlCreateLabel("From-To", 24, 80, 63, 24)
 GUICtrlSetFont(-1, 12, 400, 0, "MS Sans Serif")
@@ -71,8 +76,10 @@ GUICtrlSetFont(-1, 12, 400, 0, "MS Sans Serif")
 $strQtyYmd = GUICtrlCreateInput("10", 280, 296, 33, 21, BitOR($GUI_SS_DEFAULT_INPUT, $ES_CENTER))
 GUICtrlSetTip(-1, "From")
 $lbl1 = GUICtrlCreateLabel("QTY:", 280, 256, 32, 24)
+GUICtrlSetTip(-1, "Quantity")
 GUICtrlSetFont(-1, 12, 400, 0, "MS Sans Serif")
 GUICtrlCreateGroup("", -99, -99, 1, 1)
+$sttBar = _GUICtrlStatusBar_Create($Form1_1)
 GUISetState(@SW_SHOW)
 #EndRegion ### END Koda GUI section ###
 While 1
@@ -117,7 +124,9 @@ Func Random_Cd()
 				$listCdRandom = $listCdRandom & $txtPre & $i & @CRLF
 			Next
 		EndIf
+		ClipPut($listCdRandom)
 		GUICtrlSetData($listCd, $listCdRandom)
+		_GUICtrlStatusBar_SetText($sttBar, "The data has been copied to the clipboard")
 	EndIf
 EndFunc   ;==>Random_Cd
 
@@ -153,7 +162,9 @@ Func Random_YMD()
 
 		$listYmdRandom = $listYmdRandom & $txtYearRandom & $txtMoRandom & $txtDayRandom & @CRLF
 	Next
+	ClipPut($listYmdRandom)
 	GUICtrlSetData($listYMD, $listYmdRandom)
+	_GUICtrlStatusBar_SetText($sttBar, "The data has been copied to the clipboard")
 EndFunc   ;==>Random_YMD
 
 Func onChangeType()
