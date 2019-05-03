@@ -1,6 +1,7 @@
 ﻿#Region ;**** Directives created by AutoIt3Wrapper_GUI ****
 #AutoIt3Wrapper_Icon=random.ico
-#AutoIt3Wrapper_Res_Fileversion=0.0.0.5
+#AutoIt3Wrapper_Compression=0
+#AutoIt3Wrapper_Res_Fileversion=0.0.0.7
 #AutoIt3Wrapper_Res_Fileversion_AutoIncrement=y
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
 #include <ButtonConstants.au3>
@@ -95,22 +96,29 @@ Func Random_Cd()
 	Local $txtQtyCd = GUICtrlRead($strQtyCd)
 	Local $Combotype = GUICtrlRead($type)
 	Local $txtCdRandom, $listCdRandom
-	If $Combotype = 'Random' Then
-		For $i = 1 To $txtQtyCd
-			$txtCdRandom = Random($txtCdFr, $txtCdTo, 1)
-			If StringLen($txtCdRandom) < StringLen($txtCdTo) Then
-				For $j = StringLen($txtCdRandom) To StringLen($txtCdTo) - 1
-					$txtCdRandom = 0 & $txtCdRandom
-				Next
-			EndIf
-			$listCdRandom = $listCdRandom & $txtPre & $txtCdRandom & @CRLF
-		Next
+	ConsoleWrite($txtCdTo)
+	If $txtCdFr = "" Or $txtCdTo = "" Then
+		MsgBox(48, 'ERROR', 'Please enter From-To.')
+	ElseIf $txtCdFr > $txtCdTo Then
+		MsgBox(48, 'ERROR', 'From > To')
 	Else
-		For $i = $txtCdFr To $txtCdTo
-			$listCdRandom = $listCdRandom & $txtPre & $i & @CRLF
-		Next
+		If $Combotype = 'Random' Then
+			For $i = 1 To $txtQtyCd
+				$txtCdRandom = Random($txtCdFr, $txtCdTo, 1)
+				If StringLen($txtCdRandom) < StringLen($txtCdTo) Then
+					For $j = StringLen($txtCdRandom) To StringLen($txtCdTo) - 1
+						$txtCdRandom = 0 & $txtCdRandom
+					Next
+				EndIf
+				$listCdRandom = $listCdRandom & $txtPre & $txtCdRandom & @CRLF
+			Next
+		Else
+			For $i = $txtCdFr To $txtCdTo
+				$listCdRandom = $listCdRandom & $txtPre & $i & @CRLF
+			Next
+		EndIf
+		GUICtrlSetData($listCd, $listCdRandom)
 	EndIf
-	GUICtrlSetData($listCd, $listCdRandom)
 EndFunc   ;==>Random_Cd
 
 Func Random_YMD()
