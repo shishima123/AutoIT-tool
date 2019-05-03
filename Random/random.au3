@@ -1,7 +1,7 @@
 ﻿#Region ;**** Directives created by AutoIt3Wrapper_GUI ****
 #AutoIt3Wrapper_Icon=random.ico
 #AutoIt3Wrapper_Compression=0
-#AutoIt3Wrapper_Res_Fileversion=0.0.0.8
+#AutoIt3Wrapper_Res_Fileversion=0.0.0.9
 #AutoIt3Wrapper_Res_Fileversion_AutoIncrement=y
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
 #include <ButtonConstants.au3>
@@ -32,8 +32,8 @@ $btnGenCd = GUICtrlCreateButton("GENERATE", 136, 160, 75, 25)
 $listCd = GUICtrlCreateEdit("", 368, 32, 137, 161, BitOR($GUI_SS_DEFAULT_EDIT, $ES_CENTER, $ES_UPPERCASE))
 GUICtrlSetData(-1, "")
 $strQtyCd = GUICtrlCreateInput("10", 256, 120, 33, 21, BitOR($GUI_SS_DEFAULT_INPUT, $ES_CENTER))
-$lblQtyCd = GUICtrlCreateLabel("QTY:", 200, 120, 47, 24)
 GUICtrlSetTip(-1, "Quantity")
+$lblQtyCd = GUICtrlCreateLabel("QTY:", 200, 120, 47, 24)
 GUICtrlSetFont(-1, 12, 400, 0, "MS Sans Serif")
 $type = GUICtrlCreateCombo("Random", 88, 120, 81, 25, BitOR($CBS_DROPDOWN, $CBS_AUTOHSCROLL))
 GUICtrlSetData(-1, "Order")
@@ -74,9 +74,8 @@ GUICtrlSetFont(-1, 12, 400, 0, "MS Sans Serif")
 $lblDay = GUICtrlCreateLabel("Day", 32, 336, 32, 24)
 GUICtrlSetFont(-1, 12, 400, 0, "MS Sans Serif")
 $strQtyYmd = GUICtrlCreateInput("10", 280, 296, 33, 21, BitOR($GUI_SS_DEFAULT_INPUT, $ES_CENTER))
-GUICtrlSetTip(-1, "From")
-$lbl1 = GUICtrlCreateLabel("QTY:", 280, 256, 32, 24)
 GUICtrlSetTip(-1, "Quantity")
+$lbl1 = GUICtrlCreateLabel("QTY:", 280, 256, 32, 24)
 GUICtrlSetFont(-1, 12, 400, 0, "MS Sans Serif")
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 $sttBar = _GUICtrlStatusBar_Create($Form1_1)
