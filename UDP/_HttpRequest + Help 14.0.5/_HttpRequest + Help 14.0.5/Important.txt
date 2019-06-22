@@ -1,0 +1,2 @@
+Vui lòng cập nhật lại CallTips vì đã thêm một số hàm mới và thêm thắt 1 số hàm cũ.
+Vui lòng xem ChangeLog để biết chi tiết những thay đổi của bản mới.
