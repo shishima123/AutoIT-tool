@@ -1,0 +1,35 @@
+#Add the path to your MP3 files here
+$mp3path = "E:\English\Listening_Practice_Through_Dictation(PDF+Audio)-KKa@VNZ\ListeningPracticeThroughDictation_1\copied\"
+
+#Load the .dll file that can read and write MP3 tags
+Add-Type -Path "C:\Users\shish\Downloads\taglib-sharp-2.1.0.0-windows\taglib-sharp-2.1.0.0-windows\Libraries\taglib-sharp.dll"
+
+#Get all the MP3 files in the specified path
+$mp3files = Get-ChildItem -Path $mp3path -Filter *.mp3
+
+#Loop through each MP3 file
+foreach ($mp3file in $mp3files) {
+
+    #Read the MP3 tags using the .dll file
+    $file = [TagLib.File]::Create($mp3file.FullName)
+
+    #Get the full name of the file
+    $fullname = $mp3file.Name.Replace(".mp3","")
+
+    #Set the tag title to the full name
+    $file.Tag.Title = $fullname
+
+    #Save the changes to the file
+    $file.Save()
+
+    #Output the old and new tag titles for verification
+    Write-Output "Old title: $($file.Tag.Title)"
+    Write-Output "New title: $fullname"
+	Write-Output "New title for $($file.Name): $($file.Tag.Title)"
+}
+In this modified script, we use `Write-Output
+
+
+
+
+
